@@ -1,0 +1,5 @@
+title = "LOVE Tutorial - User input"
+author = "Iván Vodopiviz"
+width = 800
+height = 600
+love_version = "0.2.1"

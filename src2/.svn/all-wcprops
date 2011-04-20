@@ -1,0 +1,179 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/iogames/!svn/ver/82/trunk/src2
+END
+dialog.lua
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/iogames/!svn/ver/69/trunk/src2/dialog.lua
+END
+logo.lua
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/iogames/!svn/ver/53/trunk/src2/logo.lua
+END
+ggun.lua
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/iogames/!svn/ver/66/trunk/src2/ggun.lua
+END
+ship.lua
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/iogames/!svn/ver/65/trunk/src2/ship.lua
+END
+menu.lua
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/iogames/!svn/ver/75/trunk/src2/menu.lua
+END
+objmanager.lua
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/iogames/!svn/ver/61/trunk/src2/objmanager.lua
+END
+laser.lua
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/iogames/!svn/ver/66/trunk/src2/laser.lua
+END
+beacon2.lua
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/iogames/!svn/ver/61/trunk/src2/beacon2.lua
+END
+star.lua
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/iogames/!svn/ver/61/trunk/src2/star.lua
+END
+button.lua
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/iogames/!svn/ver/43/trunk/src2/button.lua
+END
+game.conf
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/iogames/!svn/ver/48/trunk/src2/game.conf
+END
+screen.lua
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/iogames/!svn/ver/69/trunk/src2/screen.lua
+END
+explosion.lua
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/iogames/!svn/ver/63/trunk/src2/explosion.lua
+END
+trash.lua
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/iogames/!svn/ver/57/trunk/src2/trash.lua
+END
+objrecycle.lua
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/iogames/!svn/ver/50/trunk/src2/objrecycle.lua
+END
+event.lua
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/iogames/!svn/ver/43/trunk/src2/event.lua
+END
+mothership.lua
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/iogames/!svn/ver/61/trunk/src2/mothership.lua
+END
+planet.lua
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/iogames/!svn/ver/71/trunk/src2/planet.lua
+END
+message.lua
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/iogames/!svn/ver/43/trunk/src2/message.lua
+END
+main.lua
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/iogames/!svn/ver/75/trunk/src2/main.lua
+END
+pirate.lua
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/iogames/!svn/ver/65/trunk/src2/pirate.lua
+END
+grid.lua
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/iogames/!svn/ver/43/trunk/src2/grid.lua
+END
+debri.lua
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/iogames/!svn/ver/57/trunk/src2/debri.lua
+END
+world.lua
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/iogames/!svn/ver/50/trunk/src2/world.lua
+END
+beacon.lua
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/iogames/!svn/ver/63/trunk/src2/beacon.lua
+END
+sound.lua
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/iogames/!svn/ver/63/trunk/src2/sound.lua
+END
+options.lua
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/iogames/!svn/ver/43/trunk/src2/options.lua
+END
+player.lua
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/iogames/!svn/ver/63/trunk/src2/player.lua
+END
+credits.lua
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/iogames/!svn/ver/82/trunk/src2/credits.lua
+END

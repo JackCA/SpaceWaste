@@ -1,0 +1,306 @@
+Level1 = {}
+Level1.__index = Level1
+Level1.font_small = love.graphics.newFont("fonts/freshbot.ttf", 20)
+Level1.font = love.graphics.newFont("fonts/freshbot.ttf", 30)
+Level1.font_huge = love.graphics.newFont("fonts/freshbot.ttf", 50)
+Level1.color = love.graphics.newColor(220,220,220)
+Level1.overlay = love.graphics.newColor(100,100,100,150)
+Level1.music = love.audio.newSound("sounds/music/LazorZone.aif")
+Level1.cursor = love.graphics.newImage("images/cursor.png")
+
+
+
+
+function Level1.create()
+	local temp = {}
+	setmetatable(temp, Level1)
+
+	temp.button = {resume=Button.create_text("Resume", screen.width/2-100, screen.height/2+100),
+		quit = Button.create_text("Quit", screen.width/2+125, screen.height/2+100),
+		quit2 = Button.create_text("Quit", screen.width/2, screen.height/2+100)}
+
+	love.audio.play(Level1.music, 0)
+	Level1.music:setVolume(0)
+
+	return temp
+end
+
+function Level1:draw()
+	objm:draw()
+    -- Draw the "cursor" at the mouse position.
+    love.graphics.draw(Level1.cursor, love.mouse.getX(), love.mouse.getY())
+
+	love.graphics.setFont(self.font_small)
+	love.graphics.setColor(self.color)
+	love.graphics.draw("FPS: " .. love.timer.getFPS(), 50, 50)
+
+	if self.state=="pause" then
+		love.graphics.setColor(self.overlay)
+		love.graphics.rectangle(love.draw_fill, 0, 0, screen.width, screen.height)
+		love.graphics.setColor(self.color)
+		love.graphics.setFont(self.font_huge)
+		love.graphics.drawf("PAUSED", 0, screen.height/2-150, screen.width, love.align_center)
+		self.button.resume:draw()
+		self.button.quit:draw()
+	end
+
+	if self.state=="victory" then
+		love.graphics.setColor(self.overlay)
+		love.graphics.rectangle(love.draw_fill, 0, 0, screen.width, screen.height)
+		love.graphics.setColor(self.color)
+		love.graphics.setFont(self.font_huge)
+		love.graphics.drawf("VICTORY :)", 0, screen.height/2-150, screen.width, love.align_center)
+		self.button.quit2:draw()
+	end
+
+	if self.state=="fail" then
+		--[[love.graphics.setColor(self.overlay)
+		love.graphics.rectangle(love.draw_fill, 0, 0, screen.width, screen.height)
+		love.graphics.setColor(self.color)
+		love.graphics.setFont(self.font_huge)
+		love.graphics.drawf("FAIL :(", 0, screen.height/2-150, screen.width, love.align_center)
+		self.button.quit2:draw()
+        --]]
+        
+	end
+
+end
+
+function Level1:update(dt)
+	if self.dialog~=nil and self.dialog.destroyed then
+		self.dialog = nil
+	end
+	if self.state=="pause" then
+		self.button.resume:update()
+		self.button.quit:update()
+	elseif self.state=="victory" then
+		self.button.quit2:update()
+	else
+		if self.dialog==nil or self.dialog.continue then
+			objm:update(dt)
+			if self.state=="tutorial" and self.mothership.beacon~=nil and self.mothership.beacon.trash>0 then
+				self.state="pirate1"
+				self.dialog = Dialog.create({{"Milo", "Now, your mission is to - holy crap, pirates!"}})
+				self.mothership.beacon:unload()
+				--world:resize(500,500)
+			end
+			if self.state=="pirate1" and self.dialog==nil then
+				pirate.mode="moving"
+				self.dialog = Dialog.create({{"Pirate", "Yarrrr!"}}, pirate)
+				self.state = "pirate2"
+			end
+			if self.state=="pirate2" and pirate.mode=="fixed" then
+				self.dialog:unload()
+				self.dialog = Dialog.create({{"Milo", "fight! fight! fight! Calder, do whatever you can to destroy that ship!"}})
+				self.state = "pirate3"
+			end
+			if self.state=="pirate3" and self.dialog == nil then
+				spawn = function()
+					self:spawn()
+					Event.create(spawn, 10)
+				end
+				spawn()
+				self.state = "pirate4"
+			end
+			if self.state=="pirate4" and pirate.beacon1.trash>=3 and pirate.beacon2.trash>=3 then
+				self.state = "pirate5"
+				self.dialog = Dialog.create({{"Pirate", "Yarrr! Our engines are stuffed with trash! Yarrr..."}})
+				pirate:explode()
+			end
+			if self.state=="pirate5" and pirate.destroyed then
+				self.state = "victory"
+				if self.dialog~=nil then self.dialog:unload() end
+			end
+            if self.state=="fail" then
+            end
+			--player.trippy = ggun.bag[banana]==true
+		end
+	end
+
+	if player.hp<=0 then 
+    --self.state="fail" 
+    player:unload()
+    player = Player.create(100,500)
+    screen.tracking = player
+    end
+end
+
+function Level1:mousepressed(x,y,button)
+	--print((x+screen.x)/screen.scale,(y+screen.y)/screen.scale)
+	if self.state=="pause" then
+		if self.button["resume"]:mousepressed(x, y, button) then
+			self.state = self.oldstate
+		elseif self.button["quit"]:mousepressed(x, y, button) then
+			changestate(Menu.create())
+		end
+	elseif self.state=="victory" then
+		if self.button["quit2"]:mousepressed(x, y, button) then
+			changestate(Menu.create())
+		end
+	elseif self.state=="fail" then
+		--[[if self.button["quit2"]:mousepressed(x, y, button) then
+			changestate(Menu.create())
+		end--]]
+	else
+		if self.dialog~=nil then self.dialog:mousepressed(x,y,button) 
+		else objm:mousepressed(x,y,button) end
+	end
+end
+
+function Level1:keypressed(key)
+	if key==love.key_v then
+		self.state = "victory"
+	end
+	if key==love.key_escape then
+		self.oldstate = self.state
+		self.state = "pause"
+	else
+		if self.dialog~=nil then self.dialog:keypressed(key) 
+		else objm:keypressed(key) end
+	end
+end
+
+function Level1:unload()
+	self.music:setVolume(0)
+	objm:unload()
+	-- remove singletons too
+end
+
+function Level1:load()
+	self.music:setVolume(0)
+
+	self.state = "tutorial"
+
+	objm = ObjManager.create()
+
+	objm:register(screen)
+    -- Hide the default mouse.
+    love.mouse.setVisible(false)
+
+	world = World.create(function(a,b,c) self:collision(a,b,c) end)
+	world:resize(800,800)
+
+	player = Player.create(100,500)
+
+	screen.tracking = player
+
+	Grid.create()
+
+	--[[
+	Event.create(function() 
+		Message.create("Use WASD keys to move", 50, 200, self.font, self.color)
+	end, 3)
+
+	Event.create(function() 
+		Message.create("Use right click to pick up trash", 50, 200, self.font, self.color)
+	end, 20)
+
+	Event.create(function() 
+		Message.create("and left click to throw it", 50, 250, self.font, self.color)
+	end, 22)
+	--]]
+	local images = {"paper-1.png","paper-2.png","bottle.png","bananapeel.png","asteroid-1.png","toilet.png","tv.png","couch.png"}
+	for i,img in ipairs(images) do
+		images[i] = love.graphics.newImage("images/trash/"..img)
+	end
+	for i=1,100 do
+--		Trash.create(math.random()*500, math.random()*500, math.random()+4.5,
+--			images[math.random(1,8)], 50)
+	end
+
+
+	Trash.create(50,450,5,love.graphics.newImage("images/trash/paper-1.png"),50)
+	Trash.create(50,460,5,love.graphics.newImage("images/trash/paper-2.png"),50)
+	Trash.create(50,470,5,love.graphics.newImage("images/trash/bottle.png"),50)
+	banana = Trash.create(50,480,5,love.graphics.newImage("images/trash/bananapeel.png"),50)
+	Trash.create(60,450,5,love.graphics.newImage("images/trash/asteroid-1.png"),50)
+	Trash.create(60,460,5,love.graphics.newImage("images/trash/toilet.png"),50)
+	Trash.create(60,470,5,love.graphics.newImage("images/trash/tv.png"),50)
+	Trash.create(60,480,5,love.graphics.newImage("images/trash/couch.png"),50)
+
+	Trash.create(70,450,5,love.graphics.newImage("images/trash/paper-1.png"),50)
+	Trash.create(70,460,5,love.graphics.newImage("images/trash/paper-2.png"),50)
+	Trash.create(70,470,5,love.graphics.newImage("images/trash/bottle.png"),50)
+	Trash.create(50,480,5,love.graphics.newImage("images/trash/bottle.png"),50)
+	Trash.create(80,450,5,love.graphics.newImage("images/trash/asteroid-1.png"),50)
+	Trash.create(80,460,5,love.graphics.newImage("images/trash/toilet.png"),50)
+	Trash.create(80,470,5,love.graphics.newImage("images/trash/tv.png"),50)
+	Trash.create(80,480,5,love.graphics.newImage("images/trash/couch.png"),50)
+
+	ggun = GGun.create()
+
+	shiprecycler = ObjRecycle.create()
+	for i=1,20 do
+		shiprecycler:add(Ship.create({"human"},shiprecycler))
+	end
+
+	alienrecycler = ObjRecycle.create()
+	for i=1,20 do
+		local ship = Ship.create({"alien"},alienrecycler)
+        --ship.body:setAngle(180)
+		ship.image = love.graphics.newImage("images/unit/alien-2.png")
+		alienrecycler:add(ship)
+	end
+
+	laserrecycler = ObjRecycle.create()
+	for i=1,200 do
+		laserrecycler:add(Laser.create(laserrecycler))
+	end
+
+--	for i=1,1000 do
+--		Star.create(math.random()*500, math.random()*500)
+--	end
+
+	local image = love.graphics.newImage("images/trash/paper-2.png")
+	debrirecycler = ObjRecycle.create()
+	for i=1,1000 do
+		debrirecycler:add(Debri.create(debrirecycler,5,image,50))
+	end
+
+	Planet.create(200,500)
+
+	--pirate = Pirate.create(700,100,20)
+	pirate = Pirate.create(550,380,20)
+
+	self.mothership = Mothership.create(100,550,20)
+
+	screen:update(0)
+
+	self.dialog = Dialog.create({{"Milo", "Freighter 3 to Calder, come in."},
+		{"Calder", "I read you, Milo."},
+		{"Milo","Good, good.  Today's exercise is supposed to get you some practice with the Grabity gun."},
+		{"Calder", "Don't you mean Gravity Gun?"},
+		{"Milo", "No, GRABity gun.  Gravity Gun is copyright by Valve, idiot, everyone knows that."},
+		{"Milo", "Anyway, you're also gonna need practice moving around in zero gravity.  Use the W key to move up, S to move down, A to move left, and D to move right."},
+		{"Calder", "Okay, easy enough.  What about the gun?"},
+		{"Milo", "Use the mouse to aim the gun in different directions.  Hold right click to activate the suction beam.  Any trash in the beam will get vacuumed into your backpack."},
+		{"Milo", "Left click to shoot trash that you've collected.  Got that?"},
+		{"Calder", "Simple."},
+		{"Milo", "All right, try picking up some trash and load them to the ship."}})
+end
+
+function Level1:collision(obj1,obj2,contact)
+	if obj1~=nil and obj1.collision~=nil then
+		obj1:collision(obj2,contact)
+	end
+	if obj2~=nil and obj2.collision~=nil then
+		obj2:collision(obj1,contact)
+	end
+	if obj2~=nil and obj1~=nil and 
+		(obj2.__index==Trash and obj1.__index==Ship or
+		obj1.__index==Trash and obj2.__index==Ship) then
+		self.trash_hit_ship = true
+	end
+end
+
+
+function Level1:spawn()
+	for _,coord in ipairs({{330, 300},{350,400},{370, 515}}) do
+		local ship = alienrecycler:spawn(unpack(coord))
+		if ship==nil then print("need more alien") end
+	end
+	for _,coord in ipairs({{100, 300},{160, 400},{130, 500}}) do
+		local ship = shiprecycler:spawn(unpack(coord))
+		if ship==nil then print("need more ship") end
+	end
+end

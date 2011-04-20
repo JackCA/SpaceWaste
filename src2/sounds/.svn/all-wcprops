@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/iogames/!svn/ver/67/trunk/src2/sounds
+END
+click.ogg
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/iogames/!svn/ver/45/trunk/src2/sounds/click.ogg
+END
+laser-3.wav
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/iogames/!svn/ver/45/trunk/src2/sounds/laser-3.wav
+END
+ggun_vacuum_loop.wav
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/iogames/!svn/ver/45/trunk/src2/sounds/ggun_vacuum_loop.wav
+END
+ggun_pickup.wav
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/iogames/!svn/ver/48/trunk/src2/sounds/ggun_pickup.wav
+END
+alarm.wav
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/iogames/!svn/ver/61/trunk/src2/sounds/alarm.wav
+END
+ggun_vacuum_start.wav
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/iogames/!svn/ver/45/trunk/src2/sounds/ggun_vacuum_start.wav
+END
+ggun_release.wav
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/iogames/!svn/ver/45/trunk/src2/sounds/ggun_release.wav
+END
+ggun_vacuum.wav
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/iogames/!svn/ver/45/trunk/src2/sounds/ggun_vacuum.wav
+END
+explosion_2.wav
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/iogames/!svn/ver/45/trunk/src2/sounds/explosion_2.wav
+END
+ggun_release2.wav
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/iogames/!svn/ver/45/trunk/src2/sounds/ggun_release2.wav
+END
